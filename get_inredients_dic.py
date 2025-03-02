@@ -18,6 +18,7 @@ def get_inredients():
         "Basil": 1.0 * number_of_pizzas,
         "Black Pepper": 1.0 * number_of_pizzas,
         "Garlic Pouder": 0.5 * number_of_pizzas,
+        "Rosemary": 0.5 * number_of_pizzas,
         #Oz 
         "Tomato Paste": 3.0 * number_of_pizzas,
         "Mozzarella": 8.0 * number_of_pizzas,

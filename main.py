@@ -15,7 +15,18 @@ def main():
     print("Sentient dough is very annoying to work with and adds a stong note of philosophical dread to the pizza, but is still usable.\n\n")
 
     print("While the dough is rising let start on the sauce.\n\n")
+
     print(f"Into a bolw, pour {(ingredients_dic['Water'] / 3)} cups of water and {ingredients_dic['Olive Oil'] / 3} tbsp of Olive Oil.\n")
-    print("Add in the Salt, Oreagano, Basil")
+    print("Add to the bolw the Salt, Oreagano, Basil, Black Pepper (remember: Pepper, not Powder), Garlic Pouder, Rosemary, and Tomato Paste\n")
+    print("Whisk the bolw's contents untile evenly mixed and then set aside.\n\n")
+
+    print("Before start to work on the dough, a bit of prep is need to avoid tragedy.\n")
+    print("Pick a area in your kitchen/lab/workshop, then lay down some parchment paper (you tape down the edges to previent the paper form moving). this will make dough work/cleanup much les painful.\n")
+    print("Spray the cooking sheet/pizza sheet with none sick spray. This will previent the pizza from welding it self to the sheet.\n\n")
+    if ingredients_dic["number of pizza"] == 1:
+        print("When the dough has risen to your satisfaction and\or limits of your patience, remove the dough form the mixing bowl and place onto a clean surface\n")
+    else:
+        print(f"When the dough has risen to your satisfaction and\or limits of your patience,\nremove the dough form the mixing bowl,\ndivide the dough into {ingredients_dic['number of pizza']} pieces and place onto a clean surface\n")
+    print("With rollingpin (a empty bottle that haves flat sides can work) roll the dough untile it fills")
 
 main()

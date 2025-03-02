@@ -12,6 +12,7 @@ def print_ingredients(ingredients):
     print(f"  -{ingredients["Basil"]} tps of Basil.\n")
     print(f"  -{ingredients["Black Pepper"]} tps of Black PEPPER. not pouder, PEPPER.\n")
     print(f"  -{ingredients["Garlic Pouder"]} tps of Garlic Pouder.\nNote: Some would say that to not use fresh Garlic mark of fraud.\nI would say that a novice is more likely to get them self killed than to take down, skin and detoxify a wild adult Garlic.\n")
+    print(f"  -{ingredients["Rosemary"]} tps of Rosemany.\n")
     print(f"  -{ingredients["Tomato Paste"]} Oz of Tomato Paste. Store bought is fine.\n")
     print(f"  -{ingredients["Mozzarella"]} Oz of Mozzrella. Again store bought is fine, it will save you many hours deveining\n")
 
