@@ -1,6 +1,6 @@
 
 def get_inredients():
-    number_of_pizzas = int(input("What is the number of pizzas you wish to summon today?:"))
+    number_of_pizzas = int(input("What is the number of pizzas you wish to summon today?:\n"))
 
     ingredients_dic = {
         #Cups of flour
