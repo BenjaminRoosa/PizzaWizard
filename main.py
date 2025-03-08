@@ -2,35 +2,45 @@ from get_inredients_dic import get_inredients
 from print_ingredients_mod import print_ingredients
 
 class Food:
-    def __init__(self, name, tags, amount, calories, notes):
+    def __init__(self, name, tags,sev_whight, amount, calories, notes):
         self.name = name
         self.tags = tags
+        self.sev_whight = sev_whight
         self.amount = amount
         self.calories = calories
         self.notes = notes
         self.ingredients = {}
         
-    def add_ingredient(self, ingredient):
+    def add_ingredient(self, ingredient, amount):
+        
         if ingredient.name in self.ingredients.keys():
-            self.ingredients[ingredient.name].amount += 1
+            self.ingredients[ingredient.name].amount += amount
         else:
-            self.ingredients[ingredient.name] = ingredient
-        self.calories += ingredient.calories
-    def deltet_ingredient(self, ingredient, remove_all):
+            self.ingredients[ingredient.name] = ingredient 
+            self.ingredients[ingredient.name].amount = amount
+        print(f"Added {amount} sevings of {ingredient.name}")
+
+    def remove_ingredient(self, ingredient, amount, remove_all):
         if ingredient.name not in self.ingredient.keys():
+            print(f"This pizza is allready devoid of {ingredient.name}")
+
             return
-        if remove_all == False:
-            if self.ingredients[ingredient.name].amount == 1:
-                self.calories -= ingredient.calories
+        if remove_all:
+            print(f"{amount} sevings of {ingredient.name} have been removed")
+            del self.ingredients[ingredient.name]
+
+        else:
+            if self.ingredients[ingredient.name].amount - amount < 1:
+                
                 del self.ingredients[ingredient.name]
+                print(f"All sevings of {ingredient.name} have been removed")
+
                 return
             else:
-                self.calories -= ingredient.calories
-                self.ingredients[ingredient.name].amount -= 1
+                self.ingredients[ingredient.name].amount -= amount
+                print(f"{amount} sevings of {ingredient.name} have been removed")
                 
-        else:
-            
-            del self.ingredients[ingredient.name]
+                return
 
 def main():
     
