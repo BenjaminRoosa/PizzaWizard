@@ -4,7 +4,7 @@ from print_ingredients_mod import print_ingredients
 class Food:
     def __init__(self, name, tags,sev_whight, amount, calories, notes):
         self.name = name
-        self.tags = tags
+        
         self.sev_whight = sev_whight
         self.amount = amount
         self.calories = calories
@@ -12,35 +12,64 @@ class Food:
         self.ingredients = {}
         
     def add_ingredient(self, ingredient, amount):
-        
+        if amount <= 0:
+            if amount == 0:
+                print(f"Nothing added")
+                return
+            else:
+                amount = abs(amount)
+                self.remove_ingredient(ingredient, amount)
+                return
         if ingredient.name in self.ingredients.keys():
             self.ingredients[ingredient.name].amount += amount
+        
         else:
             self.ingredients[ingredient.name] = ingredient 
             self.ingredients[ingredient.name].amount = amount
-        print(f"Added {amount} sevings of {ingredient.name}")
+        self.calories += ingredient.calories * amount
 
-    def remove_ingredient(self, ingredient, amount, remove_all):
-        if ingredient.name not in self.ingredient.keys():
+        print(f"Added {amount} sevings of {ingredient.name}")
+        
+
+    def remove_ingredient(self, ingredient, amount):
+        if amount <= 0:
+            if amount == 0:
+                print(f"Nothing removed")
+                return
+            else:
+                amount = abs(amount)
+                self.add_ingredient(ingredient, amount)
+                return
+        if ingredient.name not in self.ingredients.keys():
             print(f"This pizza is allready devoid of {ingredient.name}")
 
             return
-        if remove_all:
-            print(f"{amount} sevings of {ingredient.name} have been removed")
+        
+        if self.ingredients[ingredient.name].amount - amount < 1:
+            self.calories -= self.ingredients[ingredient.name].amount * ingredient.calories
             del self.ingredients[ingredient.name]
-
+            print(f"All sevings of {ingredient.name} have been removed")
+                
         else:
-            if self.ingredients[ingredient.name].amount - amount < 1:
-                
-                del self.ingredients[ingredient.name]
-                print(f"All sevings of {ingredient.name} have been removed")
+            self.calories -= ingredient.calories * amount
+            self.ingredients[ingredient.name].amount -= amount
+            print(f"{amount} sevings of {ingredient.name} have been removed")
+        
 
-                return
-            else:
-                self.ingredients[ingredient.name].amount -= amount
-                print(f"{amount} sevings of {ingredient.name} have been removed")
-                
-                return
+    def inpect_ingredient(self, ingredient_name):
+        if ingredient_name not in self.ingredients.keys():
+            print(f"{ingredient_name} is not present")
+            return
+        
+        print(f"-Name: {self.name}\n")
+        
+        
+        print(f"-Serving weight: {self.sev_whight}")
+        print(f"-Calories per serving: {self.calories}")
+        print(f"-Number of servings: {self.amount}")
+        
+        print(f"{self.notes}")
+
 
 def main():
     
