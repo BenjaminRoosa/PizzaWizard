@@ -2,13 +2,14 @@ from get_inredients_dic import get_inredients
 from print_ingredients_mod import print_ingredients
 
 class Food:
-    def __init__(self, name, tags,sev_whight, amount, calories, notes):
+    def __init__(self, name,sev_weight, amount, calories, note):
         self.name = name
-        
-        self.sev_whight = sev_whight
+        #all measurements are by weight
+        self.sev_whight = sev_weight
         self.amount = amount
         self.calories = calories
-        self.notes = notes
+        
+        self.note = note
         self.ingredients = {}
         
     def add_ingredient(self, ingredient, amount):
@@ -61,19 +62,20 @@ class Food:
             print(f"{ingredient_name} is not present")
             return
         
-        print(f"-Name: {self.name}\n")
+        print(f"-Name: {ingredient_name.name}\n")
         
         
-        print(f"-Serving weight: {self.sev_whight}")
-        print(f"-Calories per serving: {self.calories}")
-        print(f"-Number of servings: {self.amount}")
-        
-        print(f"{self.notes}")
+        print(f"-Serving weight: {ingredient_name.sev_whight}")
+        print(f"-Calories per serving: {ingredient_name.calories}")
+        print(f"-Number of servings: {ingredient_name.amount}")
+        if ingredient_name.note != "":
+            print(f"{ingredient_name.note}")
 
 
 def main():
-    
+    number_of_pizzas = int(input("What is the number of pizzas you wish to summon today?:\n"))
     ingredients_dic = get_inredients()
+    print(f"You will need gather the fallowing reagents:")
     print_ingredients(ingredients_dic)
     print("First you will need to make the dough\n\n")
     
