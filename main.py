@@ -1,4 +1,4 @@
-from get_inredients_dic import get_inredients
+from get_inredients_dic import get_inredients, create_oreder
 from print_ingredients_mod import print_ingredients
 
 class Food:
@@ -27,8 +27,7 @@ class Food:
         else:
             self.ingredients[ingredient.name] = ingredient 
             self.ingredients[ingredient.name].amount = amount
-        self.calories += ingredient.calories * amount
-
+        
         print(f"Added {amount} sevings of {ingredient.name}")
         
 
@@ -47,34 +46,24 @@ class Food:
             return
         
         if self.ingredients[ingredient.name].amount - amount < 1:
-            self.calories -= self.ingredients[ingredient.name].amount * ingredient.calories
             del self.ingredients[ingredient.name]
             print(f"All sevings of {ingredient.name} have been removed")
                 
         else:
-            self.calories -= ingredient.calories * amount
             self.ingredients[ingredient.name].amount -= amount
             print(f"{amount} sevings of {ingredient.name} have been removed")
         
-
-    def inpect_ingredient(self, ingredient_name):
-        if ingredient_name not in self.ingredients.keys():
-            print(f"{ingredient_name} is not present")
-            return
+    
+    
         
-        print(f"-Name: {ingredient_name.name}\n")
-        
-        
-        print(f"-Serving weight: {ingredient_name.sev_whight}")
-        print(f"-Calories per serving: {ingredient_name.calories}")
-        print(f"-Number of servings: {ingredient_name.amount}")
-        if ingredient_name.note != "":
-            print(f"{ingredient_name.note}")
 
-
+#def complex(food):
+#    def __init__(self, name, sev_weight, amount, calories, note)
 def main():
     number_of_pizzas = int(input("What is the number of pizzas you wish to summon today?:\n"))
-    ingredients_dic = get_inredients()
+    pizza_order = create_oreder(number_of_pizzas)
+    ingredients_dic = get_inredients(pizza_order)
+
     print(f"You will need gather the fallowing reagents:")
     print_ingredients(ingredients_dic)
     print("First you will need to make the dough\n\n")
