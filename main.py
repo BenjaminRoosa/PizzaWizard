@@ -1,57 +1,7 @@
-from get_inredients_dic import get_inredients, create_oreder
+from get_inredients_dic import get_inredients, create_oreder, Food
 from print_ingredients_mod import print_ingredients
 
-class Food:
-    def __init__(self, name,sev_weight, amount, calories, note):
-        self.name = name
-        #all measurements are by weight
-        self.sev_whight = sev_weight
-        self.amount = amount
-        self.calories = calories
-        
-        self.note = note
-        self.ingredients = {}
-        
-    def add_ingredient(self, ingredient, amount):
-        if amount <= 0:
-            if amount == 0:
-                print(f"Nothing added")
-                return
-            else:
-                amount = abs(amount)
-                self.remove_ingredient(ingredient, amount)
-                return
-        if ingredient.name in self.ingredients.keys():
-            self.ingredients[ingredient.name].amount += amount
-        
-        else:
-            self.ingredients[ingredient.name] = ingredient 
-            self.ingredients[ingredient.name].amount = amount
-        
-        print(f"Added {amount} sevings of {ingredient.name}")
-        
 
-    def remove_ingredient(self, ingredient, amount):
-        if amount <= 0:
-            if amount == 0:
-                print(f"Nothing removed")
-                return
-            else:
-                amount = abs(amount)
-                self.add_ingredient(ingredient, amount)
-                return
-        if ingredient.name not in self.ingredients.keys():
-            print(f"This pizza is allready devoid of {ingredient.name}")
-
-            return
-        
-        if self.ingredients[ingredient.name].amount - amount < 1:
-            del self.ingredients[ingredient.name]
-            print(f"All sevings of {ingredient.name} have been removed")
-                
-        else:
-            self.ingredients[ingredient.name].amount -= amount
-            print(f"{amount} sevings of {ingredient.name} have been removed")
         
     
     
