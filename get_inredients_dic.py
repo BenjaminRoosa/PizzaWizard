@@ -1,14 +1,11 @@
 class Food:
-    def __init__(self, name,sev_weight, amount, calories, note):
+    def __init__(self, name,calories):
         self.name = name
         #all measurements are by weight
-        self.sev_whight = sev_weight
-        self.amount = amount
+        
         self.calories = calories
-        
-        self.note = note
         self.ingredients = {}
-        
+"""    
     def add_ingredient(self, ingredient, amount):
         if amount <= 0:
             if amount == 0:
@@ -49,7 +46,7 @@ class Food:
         else:
             self.ingredients[ingredient.name].amount -= amount
             print(f"{amount} sevings of {ingredient.name} have been removed")
-
+"""
 
 def get_inredients(food, amount):
     total_base_ingredients =   {}
@@ -85,7 +82,7 @@ def mesh_dics(dic_a, dic_b):
             ab_dic[i].amount = dic_b[i].amount
     return ab_dic
 
-def create_oreder(number_of_pizzas):
-    order_list = []
-    for i in range(number_of_pizzas):
-        name_of_pizza = f"Pizza #{i}"
+#def create_oreder(number_of_pizzas):
+#    order_list = []
+#    for i in range(number_of_pizzas):
+        

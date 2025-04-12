@@ -1,21 +1,44 @@
 from get_inredients_dic import get_inredients, create_oreder, Food
 from print_ingredients_mod import print_ingredients
 
-
-        
+def command_sanitizer(command):
+    command_list = command.split()
     
-    
-        
-
-#def complex(food):
-#    def __init__(self, name, sev_weight, amount, calories, note)
+    return command_list[0].lower().strip()
+def create_pizza(current_pizza_number):
+    new_pizza = Food.__init__(f"Pizza# {current_pizza_number}", 2.072)
+    pizza_ingrediens = {
+        "flour" : {
+            "measurep" : "cups",
+            "amount" : 3
+        },
+        "water" : {
+            "measurep" : "cups",
+            "amount" : 1.5
+        },
+        "salt" : {
+            "measurep" : "tesp"
+        }
+    }
 def main():
-    number_of_pizzas = int(input("What is the number of pizzas you wish to summon today?:\n"))
-    pizza_order = create_oreder(number_of_pizzas)
-    ingredients_dic = get_inredients(pizza_order)
-
+    exit_loop = True
+    pizza_order = []
+    current_pizza_number = 0
+    while exit_loop:
+        dirty_command = input("What is your command:\n")
+        command = command_sanitizer(dirty_command)
+        if command == "help":
+            print("Command: descripion.")
+            print("help:    prints all command descriptions.")
+        elif command == "add":
+            pizza_order.append(create_pizza(current_pizza_number))
+            print("pizza added.")
+        else:
+            print("invalid Command.")
+    
+    """
     print(f"You will need gather the fallowing reagents:")
-    print_ingredients(ingredients_dic)
+    
     print("First you will need to make the dough\n\n")
     
     print(f"Place {(ingredients_dic["Flour"])} Cups of flour and {(ingredients_dic["Salt"] / 2)} tsp of salt into the mixing bowl.")
@@ -50,6 +73,6 @@ def main():
     print("Spread the Mozzarella over the sauce.")
     print("Bake for 13-17 mins and enjoy.")
     
-
+    """
 
 main()
