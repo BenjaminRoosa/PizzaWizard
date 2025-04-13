@@ -6,7 +6,7 @@ def command_sanitizer(command):
     
     return command_list[0].lower().strip()
 def create_pizza(current_pizza_number):
-    new_pizza = Food.__init__(f"Pizza# {current_pizza_number}", 2.072)
+    new_pizza = Food.__init__(f"{current_pizza_number}- Pizza", 2.072)
     pizza_ingrediens = {
         "flour" : {
             "measurep" : "cups",
@@ -30,11 +30,37 @@ def main():
         if command == "help":
             print("Command: descripion.")
             print("help:    prints all command descriptions.")
+            print("add:     adds pizza to order.")
+            print("remove:  removes the specified pizza from order.")
         elif command == "add":
             pizza_order.append(create_pizza(current_pizza_number))
+            current_pizza_number += 1
             print("pizza added.")
+        elif command == "remove":
+            #todo: move this command to it own function.
+            pizza_name_lst = []
+            for pizza in pizza_order:
+                pizza_name_lst.append(pizza.name)
+                print(f"-{pizza.name}")
+            remove_loop = True
+            while remove_loop:
+            
+                pizza_to_remove = command_sanitizer(input("Enter the name of the pizza to remove. cancel to cancel."))
+                if pizza_to_remove in pizza_name_lst:
+                    remove_index = pizza_name_lst.index(pizza_to_remove)
+                    pizza_order.pop(remove_index)
+                    remove_another = command_sanitizer(input("Would you like to remove another pizza?(y/n)"))
+                    if remove_another == "y":
+                        continue
+                    else:
+                        remove_loop = False
+                elif pizza_to_remove == "cancel":
+                    remove_loop = False
+                else:
+                    print("Invalid Command.")
+
         else:
-            print("invalid Command.")
+            print("Invalid Command.")
     
     """
     print(f"You will need gather the fallowing reagents:")
