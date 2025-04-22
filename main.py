@@ -3,49 +3,92 @@ from print_ingredients_mod import print_ingredients
 
 def command_sanitizer(command):
     command_list = command.split()
-    
-    return command_list[0].lower().strip()
+    sanitized_commands = []
+    for command in command_list:
+        sanitized_commands.append(command.lower().strip())
+    return sanitized_commands
 def create_pizza(current_pizza_number):
-    new_pizza = Food.__init__(f"{current_pizza_number}- Pizza", 2.072)
-    pizza_ingrediens = {
+    new_pizza = Food.__init__(f"{current_pizza_number}", 2072)
+    new_pizza.ingredients = {
         "flour" : {
-            "measurep" : "cups",
+            "measurement" : "cups",
             "amount" : 3
         },
         "water" : {
-            "measurep" : "cups",
+            "measurement" : "cups",
             "amount" : 1.5
         },
+        "mozzarella" :{
+            "measurement" : "oz",
+            "amount" : 8
+        },
         "salt" : {
-            "measurep" : "tesp"
+            "measurement" : "tsp",
+            "amount" : 1.5
+        },
+        "olive oil": {
+            "measurement" : "tsp",
+            "amount" : 1.5
+        },
+        "tomato paste": {
+            "measurement" : "oz",
+            "amount" : 3
+        },
+        "black pepper": {
+            "measurement" : "tsp",
+            "amount" : 0.5
+        },
+        "garlic clove": {
+            "measurement" : "grams",
+            "amount" : 3
+        },
+        "rosemary": {
+            "measurement" : "tsp",
+            "amount" : 0.5
+        },
+        "basil": {
+            "measurement" : "tsp",
+            "amount" : 1
+        },
+        "oregano": {
+            "measurement" : "tsp",
+            "amount" : 1
+        },
+        "sugar": {
+            "measurement" : "tsp",
+            "amount" : 1
         }
     }
+def is_pi
 def main():
-    exit_loop = True
+    main_loop = True
     pizza_order = []
     current_pizza_number = 0
-    while exit_loop:
+    while main_loop:
         dirty_command = input("What is your command:\n")
-        command = command_sanitizer(dirty_command)
-        if command == "help":
+        command_all = command_sanitizer(dirty_command)
+        
+        pizza_name_lst = []
+                
+        if command_all[0] == "help":
             print("Command: descripion.")
             print("help:    prints all command descriptions.")
-            print("add:     adds pizza to order.")
-            print("remove:  removes the specified pizza from order.")
-        elif command == "add":
-            pizza_order.append(create_pizza(current_pizza_number))
+            print("add:     opens pizza maker.")
+            print("remove:  opens pizza remover. For removing individual")
+            print("modify:  opens pizza modifier")
+        elif command_all[0] == "add":
+            new_pizza = create_pizza(current_pizza_number)
+            pizza_order.append(new_pizza)
             current_pizza_number += 1
+            pizza_name_lst.append(new_pizza.name)
             print("pizza added.")
-        elif command == "remove":
+        elif command_all[0] == "remove":
             #todo: move this command to it own function.
-            pizza_name_lst = []
-            for pizza in pizza_order:
-                pizza_name_lst.append(pizza.name)
-                print(f"-{pizza.name}")
+            
             remove_loop = True
             while remove_loop:
             
-                pizza_to_remove = command_sanitizer(input("Enter the name of the pizza to remove. cancel to cancel."))
+                pizza_to_remove = command_sanitizer(input("Enter the number of the pizza to remove. cancel to cancel."))
                 if pizza_to_remove in pizza_name_lst:
                     remove_index = pizza_name_lst.index(pizza_to_remove)
                     pizza_order.pop(remove_index)
@@ -57,7 +100,13 @@ def main():
                 elif pizza_to_remove == "cancel":
                     remove_loop = False
                 else:
-                    print("Invalid Command.")
+                    print("No pizza with that number.")
+
+        elif command_all[0] == "modify":
+            mod_loop = True
+            while mod_loop:
+                mod_command = command_sanitizer(input("Enter the number of pizza to modify"))
+                if mod_command in pizza_name_lst:
 
         else:
             print("Invalid Command.")

@@ -5,6 +5,7 @@ class Food:
         
         self.calories = calories
         self.ingredients = {}
+    
 """    
     def add_ingredient(self, ingredient, amount):
         if amount <= 0:
