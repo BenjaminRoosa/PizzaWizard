@@ -19,43 +19,43 @@ def create_pizza(current_pizza_number):
             "amount" : 1.5
         },
         "mozzarella" :{
-            "measurement" : "oz",
+            "measurement" : "ounces",
             "amount" : 8
         },
         "salt" : {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 1.5
         },
         "olive oil": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 1.5
         },
         "tomato paste": {
-            "measurement" : "oz",
+            "measurement" : "ounces",
             "amount" : 3
         },
         "black pepper": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 0.5
         },
-        "garlic clove": {
-            "measurement" : "grams",
-            "amount" : 3
+        "garlic": {
+            "measurement" : "ounces",
+            "amount" : 1
         },
         "rosemary": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 0.5
         },
         "basil": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 1
         },
         "oregano": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 1
         },
         "sugar": {
-            "measurement" : "tsp",
+            "measurement" : "teaspoons",
             "amount" : 1
         }
     }
@@ -77,48 +77,39 @@ def main():
     while main_loop:
         dirty_command = input("What is your command:\n")
         command_all = command_sanitizer(dirty_command)
-        
-        
-                
+               
         if command_all[0] == "help":
             print("Command: descripion.")
             print("help:    prints all command descriptions.")
-            print("add:     opens pizza maker.")
-            print("remove:  opens pizza remover. For removing individual")
-            print("modify:  opens pizza modifier")
+            print("add:     adds pizza to order.")
+            print("remove:  removes pizza from order.")
+            print("ingredients: prints all ingredients and they're amounts for the order.")
+            print("calories: prints total calories of order and by slice.")
         elif command_all[0] == "add":
             new_pizza = create_pizza(current_pizza_number)
             pizza_order.append(new_pizza)
             current_pizza_number += 1
-            pizza_name_lst.append(new_pizza.name)
+            
             print("pizza added.")
         elif command_all[0] == "remove":
-            #todo: move this command to it own function.
             
-            remove_loop = True
-            while remove_loop:
             
-                pizza_to_remove = command_sanitizer(input("Enter the number of the pizza to remove. cancel to cancel."))
-                if is_pizza(pizza_to_remove, pizza_order):
-                    
-                    pizza_order.remove(get_pizza(pizza_to_remove, pizza_order))
-                    remove_another = command_sanitizer(input("Would you like to remove another pizza?(y/n)"))
-                    if remove_another == "y":
-                        continue
-                    else:
-                        remove_loop = False
-                elif pizza_to_remove == "cancel":
-                    remove_loop = False
-                else:
-                    print("No pizza with that number.")
-
-        elif command_all[0] == "modify":
-            mod_loop = True
-            while mod_loop:
-                mod_command = command_sanitizer(input("Enter the number of pizza to modify"))
-                if is_pizza(mod_command):
-                    pizza_index = get_pizza(mod_command, pizza_order)
-
+            pizza_order.pop()
+        elif command_all[0] == "ingredients":
+            pizza_ingredints = pizza_order[0].ingredients
+            ingredient_keys = pizza_order[0].ingredients.keys()
+            for key in ingredient_keys:
+               ingredient_amount = pizza_ingredints[key]["amount"] * len(pizza_order)
+               ingredient_measurement = pizza_ingredints[key]["measurement"]
+               print(f"-{ingredient_amount} {ingredient_measurement} of {key}")
+        elif command_all[0] == "calories":
+            total_order_cal = 0
+            if len(pizza_order) <= 0: 
+                print("Zer0, zelch, nada, calories.")
+            else:
+                for pizza in pizza_order:
+                    total_order_cal += pizza.calories
+                print(f"{total_order_cal} calories.")
         else:
             print("Invalid Command.")
     

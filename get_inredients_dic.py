@@ -47,7 +47,7 @@ class Food:
         else:
             self.ingredients[ingredient.name].amount -= amount
             print(f"{amount} sevings of {ingredient.name} have been removed")
-"""
+
 
 def get_inredients(food, amount):
     total_base_ingredients =   {}
@@ -64,7 +64,7 @@ def get_inredients(food, amount):
             additional_ingredients = get_inredients(ingredient)
             total_base_ingredients = mesh_dics(total_base_ingredients, additional_ingredients)
     return total_base_ingredients
-
+"""
 def mesh_dics(dic_a, dic_b):
     a_keys = dic_a.keys()
     b_keys = dic_b.keys()
