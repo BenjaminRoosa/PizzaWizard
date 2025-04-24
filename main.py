@@ -59,7 +59,17 @@ def create_pizza(current_pizza_number):
             "amount" : 1
         }
     }
-def is_pi
+def is_pizza(pizza_number, pizza_order):
+    for pizza in pizza_order:
+        if pizza.name == pizza_number:
+            return True
+    return False
+def get_pizza(pizza_number, pizza_order):
+
+    for pizza in pizza_order:
+        if pizza.name == pizza_number:
+            return pizza_order.index(pizza)
+    
 def main():
     main_loop = True
     pizza_order = []
@@ -68,7 +78,7 @@ def main():
         dirty_command = input("What is your command:\n")
         command_all = command_sanitizer(dirty_command)
         
-        pizza_name_lst = []
+        
                 
         if command_all[0] == "help":
             print("Command: descripion.")
@@ -89,9 +99,9 @@ def main():
             while remove_loop:
             
                 pizza_to_remove = command_sanitizer(input("Enter the number of the pizza to remove. cancel to cancel."))
-                if pizza_to_remove in pizza_name_lst:
-                    remove_index = pizza_name_lst.index(pizza_to_remove)
-                    pizza_order.pop(remove_index)
+                if is_pizza(pizza_to_remove, pizza_order):
+                    
+                    pizza_order.remove(get_pizza(pizza_to_remove, pizza_order))
                     remove_another = command_sanitizer(input("Would you like to remove another pizza?(y/n)"))
                     if remove_another == "y":
                         continue
@@ -106,7 +116,8 @@ def main():
             mod_loop = True
             while mod_loop:
                 mod_command = command_sanitizer(input("Enter the number of pizza to modify"))
-                if mod_command in pizza_name_lst:
+                if is_pizza(mod_command):
+                    pizza_index = get_pizza(mod_command, pizza_order)
 
         else:
             print("Invalid Command.")
