@@ -4,7 +4,56 @@ class Food:
         #all measurements are by weight
         
         self.calories = calories
-        self.ingredients = {}
+        self.ingredients = {
+            "flour" : {
+                "measurement" : "cups",
+                "amount" : 3
+            },
+            "water" : {
+                "measurement" : "cups",
+                "amount" : 1.5
+            },
+            "mozzarella" :{
+                "measurement" : "ounces",
+                "amount" : 8
+            },
+            "salt" : {
+                "measurement" : "teaspoons",
+                "amount" : 1.5
+            },
+            "olive oil": {
+                "measurement" : "teaspoons",
+                "amount" : 1.5
+            },
+            "tomato paste": {
+                "measurement" : "ounces",
+                "amount" : 3
+            },
+            "black pepper": {
+                "measurement" : "teaspoons",
+                "amount" : 0.5
+            },
+            "garlic": {
+                "measurement" : "ounces",
+                "amount" : 1
+            },
+            "rosemary": {
+                "measurement" : "teaspoons",
+                "amount" : 0.5
+            },
+            "basil": {
+                "measurement" : "teaspoons",
+                "amount" : 1
+            },
+            "oregano": {
+                "measurement" : "teaspoons",
+                "amount" : 1
+            },
+            "sugar": {
+                "measurement" : "teaspoons",
+                "amount" : 1
+            }
+        }
     
 """    
     def add_ingredient(self, ingredient, amount):

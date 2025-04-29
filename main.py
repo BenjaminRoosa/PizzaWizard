@@ -2,63 +2,60 @@ from get_inredients_dic import get_inredients, create_oreder, Food
 from print_ingredients_mod import print_ingredients
 
 def command_sanitizer(command):
+    #todo: move input() & input_string here
     command_list = command.split()
     sanitized_commands = []
     for command in command_list:
         sanitized_commands.append(command.lower().strip())
     return sanitized_commands
+def creat_pizza_commands():
+    print("help:        Prints this list again.")
+    print("basic:       just crust, sauce, and chees.")
+    print("pepperoni:   a basic with pepperoni topping.")
+    print("cheese:      It what it says on the tin, a basic with extra cheese")
+    print("dulux:       extra pepperoni, extra chees, and extra calories")
+    print("nevermind    return to main menue without adding a pizza.")
+def true_false(command_string):
+    add_command = command_sanitizer(f"{command_string} (y/n)")
+    add_true_false = True
+    add_another_loop = True
+    while add_another_loop:
+        if add_command == "y":
+            add_another_loop = False
+        elif add_command == "n":
+            add_true_false = False
+            add_another_loop = False
+        else:
+            print("invaid input")
+        
+    return add_true_false
 def create_pizza(current_pizza_number):
-    new_pizza = Food.__init__(f"{current_pizza_number}", 2072)
-    new_pizza.ingredients = {
-        "flour" : {
-            "measurement" : "cups",
-            "amount" : 3
-        },
-        "water" : {
-            "measurement" : "cups",
-            "amount" : 1.5
-        },
-        "mozzarella" :{
-            "measurement" : "ounces",
-            "amount" : 8
-        },
-        "salt" : {
-            "measurement" : "teaspoons",
-            "amount" : 1.5
-        },
-        "olive oil": {
-            "measurement" : "teaspoons",
-            "amount" : 1.5
-        },
-        "tomato paste": {
-            "measurement" : "ounces",
-            "amount" : 3
-        },
-        "black pepper": {
-            "measurement" : "teaspoons",
-            "amount" : 0.5
-        },
-        "garlic": {
-            "measurement" : "ounces",
-            "amount" : 1
-        },
-        "rosemary": {
-            "measurement" : "teaspoons",
-            "amount" : 0.5
-        },
-        "basil": {
-            "measurement" : "teaspoons",
-            "amount" : 1
-        },
-        "oregano": {
-            "measurement" : "teaspoons",
-            "amount" : 1
-        },
-        "sugar": {
-            "measurement" : "teaspoons",
-            "amount" : 1
-        }
-    }
+    create_pizza_loop = True
+    list_of_pizza = []
+    while create_pizza_loop:
+        create_command = command_sanitizer("what kind of pizza do you wish for?")
+        if create_command[0] == "help":
+            creat_pizza_commands()
+
+        elif create_command[0] == "basic":
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number}- basic", 2072)) 
+            
+        elif create_command[0] == "pepperoni":
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number}- pepperoni", 2144))
+            list_of_pizza[-1].ingredients["pepperoni"] = {
+                "measurement" : "ounces",
+                "amount" : 0.5
+                }
+            
+        elif create_command[0] == "cheese":
+            #new_pizza
+            pass
+        if true_false("Add another pizza?"):
+            continue
+        else:
+           print("returning to main menue.")
+           create_pizza_loop = False
+    return list_of_pizza
 def is_pizza(pizza_number, pizza_order):
     for pizza in pizza_order:
         if pizza.name == pizza_number:
@@ -87,12 +84,15 @@ def main():
             print("calories: prints total calories of order and by slice.")
         elif command_all[0] == "add":
             new_pizza = create_pizza(current_pizza_number)
+            if new_pizza.name != "nevermind":
+                print("Returning to main menu.")
+                continue
             pizza_order.append(new_pizza)
             current_pizza_number += 1
             
             print("pizza added.")
         elif command_all[0] == "remove":
-            
+            #todo: alow fto pick pizza to remove
             
             pizza_order.pop()
         elif command_all[0] == "ingredients":
