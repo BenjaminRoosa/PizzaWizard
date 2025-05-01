@@ -2,21 +2,21 @@ from get_inredients_dic import get_inredients, create_oreder, Food
 from print_ingredients_mod import print_ingredients
 
 def command_sanitizer(command):
-    #todo: move input() & input_string here
-    command_list = command.split()
+    dirty_command = input(f"{command}")
+    command_list = dirty_command.split()
     sanitized_commands = []
     for command in command_list:
         sanitized_commands.append(command.lower().strip())
     return sanitized_commands
 def creat_pizza_commands():
     print("help:        Prints this list again.")
-    print("basic:       just crust, sauce, and chees.")
-    print("pepperoni:   a basic with pepperoni topping.")
-    print("cheese:      It what it says on the tin, a basic with extra cheese")
-    print("dulux:       extra pepperoni, extra chees, and extra calories")
-    print("nevermind    return to main menue without adding a pizza.")
+    print("basic:       Just crust, sauce, and chees.")
+    print("pepperoni:   A basic with pepperoni topping.")
+    print("cheese:      It what it says on the tin, a basic with extra cheese.")
+    print("dulux:       Extra pepperoni, extra chees, and extra calories.")
+    print("main:        return main menue. Will ask if you want to discard.")
 def true_false(command_string):
-    add_command = command_sanitizer(f"{command_string} (y/n)")
+    add_command = command_sanitizer(f"{command_string} (y/n)?")
     add_true_false = True
     add_another_loop = True
     while add_another_loop:
@@ -26,71 +26,91 @@ def true_false(command_string):
             add_true_false = False
             add_another_loop = False
         else:
-            print("invaid input")
+            print("Invaid input.")
         
     return add_true_false
 def create_pizza(current_pizza_number):
+    current_pizza_number_copy = current_pizza_number
     create_pizza_loop = True
     list_of_pizza = []
     while create_pizza_loop:
-        create_command = command_sanitizer("what kind of pizza do you wish for?")
+        create_command = command_sanitizer("What kind of pizza do you wish for?")
+        current_pizza_number_copy += 1
         if create_command[0] == "help":
             creat_pizza_commands()
 
         elif create_command[0] == "basic":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number}- basic", 2072)) 
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - basic", 2072)) 
             
         elif create_command[0] == "pepperoni":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number}- pepperoni", 2144))
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - pepperoni", 2144))
             list_of_pizza[-1].ingredients["pepperoni"] = {
                 "measurement" : "ounces",
                 "amount" : 0.5
                 }
             
         elif create_command[0] == "cheese":
-            #new_pizza
-            pass
-        if true_false("Add another pizza?"):
-            continue
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2384))
+            list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
+        elif create_command[0] == "dulux":
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2528))
+            list_of_pizza[-1].ingredients["pepperoni"] = {
+                "measurement" : "ounces",
+                "amount" : 1.0
+                }
+            list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
+        elif create_command[0] == "main":
+            create_pizza_loop = False
+            if len(list_of_pizza) > 0 :
+                for pizza in list_of_pizza:
+                    print(f"{pizza.name}")
+                if true_false("Discard above pizza(s)?(y/n)"):
+                    list_of_pizza = []
+            print("Returning to main menue.")
+            break
         else:
-           print("returning to main menue.")
-           create_pizza_loop = False
+            print("Invaid command.")
+            creat_pizza_commands()
     return list_of_pizza
 def is_pizza(pizza_number, pizza_order):
     for pizza in pizza_order:
-        if pizza.name == pizza_number:
+        pizza_name = pizza.name.split()
+        if pizza_name[0] == pizza_number:
             return True
     return False
 def get_pizza(pizza_number, pizza_order):
-
+    
     for pizza in pizza_order:
-        if pizza.name == pizza_number:
+        pizza_name = pizza.name.split()
+        if pizza_name[0] == pizza_number:
             return pizza_order.index(pizza)
     
 def main():
     main_loop = True
     pizza_order = []
+    order_tags = [] #Used later in instrucions
     current_pizza_number = 0
     while main_loop:
-        dirty_command = input("What is your command:\n")
-        command_all = command_sanitizer(dirty_command)
+        
+        command_all = command_sanitizer("What is your command:\n")
                
         if command_all[0] == "help":
-            print("Command: descripion.")
-            print("help:    prints all command descriptions.")
-            print("add:     adds pizza to order.")
-            print("remove:  removes pizza from order.")
-            print("ingredients: prints all ingredients and they're amounts for the order.")
-            print("calories: prints total calories of order and by slice.")
+            print("Command:     Descripion.")
+            print("help:        Prints all command descriptions.")
+            print("add:         Adds pizza(s) to order.")
+            print("remove:      Removes pizza(s) from order.")
+            print("ingredients: Prints all ingredients and they're total amounts for the order.")
+            print("calories:    prints total calories of order and by slice.")
         elif command_all[0] == "add":
-            new_pizza = create_pizza(current_pizza_number)
-            if new_pizza.name != "nevermind":
-                print("Returning to main menu.")
+            new_pizzas = create_pizza(current_pizza_number)
+
+            if len(new_pizzas) == 0:
+                
                 continue
-            pizza_order.append(new_pizza)
-            current_pizza_number += 1
+            pizza_order = pizza_order + new_pizzas
+            current_pizza_number += len(new_pizzas)
             
-            print("pizza added.")
+            
         elif command_all[0] == "remove":
             #todo: alow fto pick pizza to remove
             
