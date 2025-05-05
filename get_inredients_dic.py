@@ -2,7 +2,7 @@ class Food:
     def __init__(self, name,calories):
         self.name = name
         #all measurements are by weight
-        
+        self.tags = []
         self.calories = calories
         self.ingredients = {
             "flour" : {

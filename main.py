@@ -1,4 +1,4 @@
-from get_inredients_dic import get_inredients, create_oreder, Food
+from get_inredients_dic import get_inredients, mesh_dics, Food
 from print_ingredients_mod import print_ingredients
 
 def command_sanitizer(command):
@@ -116,12 +116,13 @@ def main():
             
             pizza_order.pop()
         elif command_all[0] == "ingredients":
-            pizza_ingredints = pizza_order[0].ingredients
-            ingredient_keys = pizza_order[0].ingredients.keys()
-            for key in ingredient_keys:
-               ingredient_amount = pizza_ingredints[key]["amount"] * len(pizza_order)
-               ingredient_measurement = pizza_ingredints[key]["measurement"]
-               print(f"-{ingredient_amount} {ingredient_measurement} of {key}")
+            pizza_ingredints = {}
+            if len(pizza_order) == 0:
+                print("the main ingredint of nothing is nothing.")
+                continue
+            for pizza in pizza_order:
+                pizza_ingredints = mesh_dics(pizza_ingredints, pizza.ingredints)
+            print_ingredients(pizza_ingredints)
         elif command_all[0] == "calories":
             total_order_cal = 0
             if len(pizza_order) <= 0: 
