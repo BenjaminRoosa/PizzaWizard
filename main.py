@@ -72,23 +72,27 @@ def create_pizza(current_pizza_number):
             print("Invaid command.")
             creat_pizza_commands()
     return list_of_pizza
-def is_pizza(pizza_number, pizza_order):
+def is_pizza(pizza_name, pizza_order):
     for pizza in pizza_order:
-        pizza_name = pizza.name.split()
-        if pizza_name[0] == pizza_number:
+        
+        if pizza.name== pizza_name:
             return True
     return False
-def get_pizza(pizza_number, pizza_order):
+def get_pizza_index(pizza_name, pizza_order):
     
     for pizza in pizza_order:
-        pizza_name = pizza.name.split()
-        if pizza_name[0] == pizza_number:
+        
+        if pizza.name == pizza_name:
             return pizza_order.index(pizza)
-    
+
+def print_pizza_order(pizza_order):
+    for pizza in pizza_order:
+        print(f"{pizza.name}")
+
 def main():
     main_loop = True
     pizza_order = []
-    order_tags = [] #Used later in instrucions
+    order_tags =  {}#Used later in instrucions todo
     current_pizza_number = 0
     while main_loop:
         
@@ -102,7 +106,7 @@ def main():
             print("ingredients: Prints all ingredients and they're total amounts for the order.")
             print("calories:    prints total calories of order and by slice.")
         elif command_all[0] == "add":
-            new_pizzas = create_pizza(current_pizza_number)
+            new_pizzas = create_pizza(current_pizza_number) #todo: add tag funcionaltiy
 
             if len(new_pizzas) == 0:
                 
@@ -112,9 +116,25 @@ def main():
             
             
         elif command_all[0] == "remove":
-            #todo: alow fto pick pizza to remove
+            if len(pizza_order) <= 0:
+                print("No pizza to remove. Negative matter pizza is not alowed. Because it hurts to think about.")
+                continue
+            print_pizza_order(pizza_order)
+            remove_loop = True
+            while remove_loop:
             
-            pizza_order.pop()
+                remove_command = command_sanitizer("Enter the pizza to remove.")
+                if is_pizza(remove_command,pizza_order):
+                    print(f"{pizza_order[remove_command].name} has been removed.")
+                    pizza_order.pop(get_pizza_index(remove_command, pizza_order))
+
+                    if true_false("Do you wish to remove another pizza"):
+                        continue
+                    else:
+                        remove_loop = False
+                else:
+                    print("There is no such pizza in your order. Pizza names must be typed exactly.(remmber: ctrl c/v does not work in a Terminal.)")
+            
         elif command_all[0] == "ingredients":
             pizza_ingredints = {}
             if len(pizza_order) == 0:
