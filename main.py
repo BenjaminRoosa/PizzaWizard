@@ -1,5 +1,5 @@
 from get_inredients_dic import  Food
-from print_ingredients_mod import print_ingredients ,print_intsturctions, mesh_dics
+from print_ingredients_mod import print_ingredients ,print_intsturctions, get_inredients
 
 def command_sanitizer(command):
     dirty_command = input(f"{command}")
@@ -10,7 +10,7 @@ def command_sanitizer(command):
     return sanitized_commands
 def creat_pizza_commands():
     print("help:        Prints create pizza command list.")
-    print("basic:       Just crust, sauce, and chees.")
+    print("basic:       Just crust, sauce, and cheese.")
     print("pepperoni:   A basic with pepperoni topping.")
     print("cheese:      It what it says on the tin, a basic with extra cheese.")
     print("dulux:       Extra pepperoni, extra chees, and extra calories.")
@@ -48,10 +48,11 @@ def create_pizza(current_pizza_number):
                 "measurement" : "ounces",
                 "amount" : 0.5
                 }
-            
+            list_of_pizza[-1].tags = ["pepperoni"]
         elif create_command[0] == "cheese":
             list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2384))
             list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
+            list_of_pizza[-1].tags = ["extra cheese"]
         elif create_command[0] == "dulux":
             list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2528))
             list_of_pizza[-1].ingredients["pepperoni"] = {
@@ -59,6 +60,7 @@ def create_pizza(current_pizza_number):
                 "amount" : 1.0
                 }
             list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
+            list_of_pizza[-1].tags = ["pepperoni","extra cheese"]
         elif create_command[0] == "main":
             create_pizza_loop = False
             if len(list_of_pizza) > 0 :
@@ -137,19 +139,10 @@ def main():
                     print("There is no such pizza in your order. Pizza names must be typed exactly.(remmber: ctrl c/v does not work in a Terminal.)")
             
         elif command_all[0] == "ingredients":
-            pizza_ingredints = {}
-            if len(pizza_order) == 0:
-                print("the main ingredint of nothing is nothing.")
-                pizza_ingredints = {
-                    "Nothing": {
-                        "measurement" : "cups",
-                        "amount" : 0
-                    }
-                }
-                continue
-            for pizza in pizza_order:
-                pizza_ingredints = mesh_dics(pizza_ingredints, pizza.ingredints)
-            print_ingredients(pizza_ingredints)
+            pizza_ingredients = get_inredients(pizza_order)
+            
+                
+            print_ingredients(pizza_ingredients)
         elif command_all[0] == "calories":
             total_order_cal = 0
             if len(pizza_order) <= 0: 

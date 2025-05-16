@@ -3,15 +3,45 @@ def print_ingredients(ingredients):
     
     for ingredient in ingredients:
         print(f"{ingredient["amount"]} {ingredient["measurement"]}--{ingredient}.")
-
-def print_intsturctions(order):
-
-    
-    
-    
-    print(f"You will need gather the following reagents:")
-
-    print_ingredients(order_ingredients)
+def get_inredients(pizza_order):
+    ingredients = {}
+    if len(pizza_order) == 0:
+        print("the main ingredint of nothing is nothing.")
+        ingredients = {
+            "Nothing": {
+                "measurement" : "nills",
+                "amount" : 0
+            }
+        }
+    elif len(pizza_order) == 1:
+        ingredients = pizza_order[0].ingredients
+    else:
+        for pizza in pizza_order:
+                    ingredients = mesh_dics(ingredients, pizza.ingredients)
+    return ingredients
+def get_tags(pizza_order):
+    tags = {}
+    for pizza in pizza_order:
+        if len(pizza.tags) > 1:
+            for tag in pizza.tags:
+                if tag in tags:
+                    old_value = tags[tag]
+                    new_value = old_value +1
+                    tags[tag]= new_value
+                else:
+                    tags[tag] = 1
+        elif len(pizza.tags) == 1:
+            if tag in tags:
+                old_value = tags[tag]
+                new_value = old_value +1
+                tags[tag]= new_value
+            else:
+                tags[tag] = 1
+        else:
+            continue
+    return tags
+def print_intsturctions(pizza_order):
+    pizza_tags = get_tags(pizza_order)
     
     print("First you will need to make the dough\n\n")
     
@@ -32,17 +62,17 @@ def print_intsturctions(order):
     print("Before start to work on the dough, a bit of prep is need to avoid tragedy.")
     print("Pick a area in your kitchen/lab/workshop, then lay down some parchment paper (you tape down the edges to previent the paper form moving). this will make dough work/cleanup much les painful.")
     print("Spray the baking/paizza sheet with none sick spray. This will previent the pizza from welding it self to the sheet.\n")
-    if ingredients_dic["number of pizza"] == 1:
+    if len(pizza_order) == 1:
         print("When the dough has risen to your satisfaction and\or limits of your patience, remove the dough form the mixing bowl and place onto a clean surface\n")
     else:
-        print(f"When the dough has risen to your satisfaction and\or limits of your patience,\nRemove the dough form the mixing bowl.\ndivide the dough into {ingredients_dic['number of pizza']} pieces and place onto a clean surface")
-    print("With rollingpin (a empty bottle that haves flat sides can work) roll the dough untile it fills cooking/pizza sheet.")
+        print(f"When the dough has risen to your satisfaction and\or limits of your patience,\nRemove the dough form the mixing bowl.\nDivide the dough into {len(pizza_order)} pieces and place onto a clean, oiled surface")
+    print("With rollingpin (a empty bottle that has str sides can work) roll the dough untile it fills cooking/pizza sheet.")
     print("Place the the rolled out dough onto the baking/paizza sheet.")
-    if ingredients_dic["number of pizza"] > 1:
-        print(f"repet for the other {ingredients_dic["number of pizza"]} doughs.")
+    if len(pizza_order) > 1:
+        print(f"repet for the other {len(pizza_order)} doughs.")
     print("\n")
 
-    print("Preheat you oven/oven analogue to 450* F.")
+    print("Preheat you oven/oven analogue to 450* F, 232* C.")
     print("Grab the pizza sauce you made earlier. Spread the sauce evanly over the dough to the edge of the pizza.")
     print("Spread the Mozzarella over the sauce.")
     print("Bake for 13-17 mins and enjoy.")
