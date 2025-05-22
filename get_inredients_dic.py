@@ -7,51 +7,63 @@ class Food:
         self.ingredients = {
             "flour" : {
                 "measurement" : "cups",
-                "amount" : 3
+                "amount" : 3,
+                "note": "You want all-purpose flour."
             },
             "water" : {
                 "measurement" : "cups",
-                "amount" : 1.5
+                "amount" : 1.5,
+                "note": "also know as raw rocket fule"
             },
             "mozzarella" :{
                 "measurement" : "ounces",
-                "amount" : 8
+                "amount" : 8,
+                "note": "the finer the shread the better."
             },
             "salt" : {
                 "measurement" : "teaspoons",
-                "amount" : 1.5
+                "amount" : 1.5,
+                "note": "aka dry sea water."
             },
             "olive oil": {
                 "measurement" : "teaspoons",
-                "amount" : 1.5
+                "amount" : 1.5,
+                "note": "just olive oil without any oils like sunflower, vegetable, canola or coconut."
             },
             "tomato paste": {
                 "measurement" : "ounces",
-                "amount" : 3
+                "amount" : 3,
+                "note": "human blood is NOT A SUBSTIUTE."
             },
             "black pepper": {
                 "measurement" : "teaspoons",
-                "amount" : 0.5
+                "amount" : 0.5,
+                "note": "Not black powder, let my eyebrows be the only casualty of this COMMON AND UNDERSTANDABLE MISSTAKE."
             },
             "garlic": {
                 "measurement" : "ounces",
-                "amount" : 1
+                "amount" : 1,
+                "note": "just buy it from the store and save your self the time of tracking, killing, detocifying, butchering, finding a herbalist and finaly get it notarzed by said herbalist"
             },
             "rosemary": {
                 "measurement" : "teaspoons",
-                "amount" : 0.5
+                "amount" : 0.5,
+                "note": "this is a type of herb, not a person."
             },
             "basil": {
                 "measurement" : "teaspoons",
-                "amount" : 1
+                "amount" : 1,
+                "note": "also a herb."
             },
             "oregano": {
                 "measurement" : "teaspoons",
-                "amount" : 1
+                "amount" : 1,
+                "note": "again herv"
             },
             "sugar": {
                 "measurement" : "teaspoons",
-                "amount" : 1
+                "amount" : 1,
+                "note": "this one is a carb"
             }
         }
     
