@@ -15,42 +15,47 @@ def creat_pizza_commands():
     print("cheese:      It what it says on the tin, a basic with extra cheese.")
     print("dulux:       Extra pepperoni, extra chees, and extra calories.")
     print("main:        return main menue. Will ask if you want to discard.")
-def true_false(command_string):
+def true_false(command_string): #left off there
     add_command = command_sanitizer(f"{command_string} (y/n)?")
-    add_true_false = True
+    
     add_another_loop = True
     while add_another_loop:
         if add_command == "y":
-            add_another_loop = False
+            add_another_loop= False
+            return True
         elif add_command == "n":
-            add_true_false = False
-            add_another_loop = False
+            add_another_loop= False
+            return False
         else:
-            print("Invaid input.")
+            print("Invaid input. Try again.")
         
-    return add_true_false
+    
 def create_pizza(current_pizza_number):
     current_pizza_number_copy = current_pizza_number
     create_pizza_loop = True
     list_of_pizza = []
     while create_pizza_loop:
-        create_command = command_sanitizer("What kind of pizza do you wish for?")
+        create_command = command_sanitizer("What kind of pizza do you wish for?\n")
         current_pizza_number_copy += 1
         if create_command[0] == "help":
             creat_pizza_commands()
 
         elif create_command[0] == "basic":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - basic", 2072)) 
+            pizza_name = f"{current_pizza_number_copy} - basic"
+            list_of_pizza.append(Food(pizza_name))
+            list_of_pizza[-1].calories = 2072
             
         elif create_command[0] == "pepperoni":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - pepperoni", 2144))
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - pepperoni"))
+            list_of_pizza[-1].calories = 2144
             list_of_pizza[-1].ingredients["pepperoni"] = {
                 "measurement" : "ounces",
                 "amount" : 0.5
                 }
             list_of_pizza[-1].tags = ["pepperoni"]
         elif create_command[0] == "cheese":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2384))
+            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese"))
+            list_of_pizza.calories = 2384
             list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
             list_of_pizza[-1].tags = ["extra cheese"]
         elif create_command[0] == "dulux":
@@ -108,6 +113,7 @@ def main():
             print("ingredients: Prints all ingredients and they're total amounts for the order.")
             print("calories:    prints total calories of order and by slice.")
             print("exit:        exits program.")
+        
         elif command_all[0] == "add":
             new_pizzas = create_pizza(current_pizza_number) #todo: add tag funcionaltiy
 
@@ -153,8 +159,10 @@ def main():
                 print(f"{total_order_cal} calories.")
         elif command_all[0] == "instuctions":
             print_intsturctions(pizza_order)
+        
         elif command_all[0] == "exit":
             main_loop = False
+        
         else:
             print("Invalid Command.")
     
