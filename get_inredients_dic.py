@@ -1,9 +1,9 @@
 class Food:
-    def __init__(self, name):
+    def __init__(self, name, calories):
         self.name = name
         #all measurements are by weight
         self.tags = []
-        self.calories = 0
+        self.calories = calories
         self.ingredients = {
             "flour" : {
                 "measurement" : "cups",

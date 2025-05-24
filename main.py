@@ -16,14 +16,14 @@ def creat_pizza_commands():
     print("dulux:       Extra pepperoni, extra chees, and extra calories.")
     print("main:        return main menue. Will ask if you want to discard.")
 def true_false(command_string): #left off there
-    add_command = command_sanitizer(f"{command_string} (y/n)?")
+    add_command = command_sanitizer(f"{command_string}")
     
     add_another_loop = True
     while add_another_loop:
-        if add_command == "y":
+        if add_command[0] == "y":
             add_another_loop= False
             return True
-        elif add_command == "n":
+        elif add_command[0] == "n":
             add_another_loop= False
             return False
         else:
@@ -42,24 +42,25 @@ def create_pizza(current_pizza_number):
 
         elif create_command[0] == "basic":
             pizza_name = f"{current_pizza_number_copy} - basic"
-            list_of_pizza.append(Food(pizza_name))
-            list_of_pizza[-1].calories = 2072
+            list_of_pizza.append(Food(pizza_name), 2072)
+            
             
         elif create_command[0] == "pepperoni":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - pepperoni"))
-            list_of_pizza[-1].calories = 2144
+            pizza_name = f"{current_pizza_number_copy} - pepperoni"
+            list_of_pizza.append(Food(pizza_name, 2144))
+            
             list_of_pizza[-1].ingredients["pepperoni"] = {
                 "measurement" : "ounces",
                 "amount" : 0.5
                 }
             list_of_pizza[-1].tags = ["pepperoni"]
         elif create_command[0] == "cheese":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese"))
-            list_of_pizza.calories = 2384
+            list_of_pizza.append(Food(f"{current_pizza_number_copy} - cheese", 2384))
+            
             list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
             list_of_pizza[-1].tags = ["extra cheese"]
         elif create_command[0] == "dulux":
-            list_of_pizza.append(Food.__init__(f"{current_pizza_number_copy} - cheese", 2528))
+            list_of_pizza.append(Food(f"{current_pizza_number_copy} - dulux", 2528))
             list_of_pizza[-1].ingredients["pepperoni"] = {
                 "measurement" : "ounces",
                 "amount" : 1.0
@@ -67,24 +68,29 @@ def create_pizza(current_pizza_number):
             list_of_pizza[-1].ingredients["mozzarella"]["amount"] = 12
             list_of_pizza[-1].tags = ["pepperoni","extra cheese"]
         elif create_command[0] == "main":
+            
             create_pizza_loop = False
             if len(list_of_pizza) > 0 :
                 for pizza in list_of_pizza:
                     print(f"{pizza.name}")
-                if true_false("Discard above pizza(s)?(y/n)"):
+                if true_false("Save above pizza(s)?(y/n)"):
+                    pass
+                else:
                     list_of_pizza = []
             print("Returning to main menue.")
-            break
         else:
             print("Invaid command.")
             creat_pizza_commands()
     return list_of_pizza
 def is_pizza(pizza_name, pizza_order):
+    pizza_name_lst = []
     for pizza in pizza_order:
-        
-        if pizza.name== pizza_name:
-            return True
-    return False
+        pizza_name_lst.append(pizza.name)
+     
+    if pizza_name in pizza_name_lst:
+        return True
+    else:
+        return False
 def get_pizza_index(pizza_name, pizza_order):
     
     for pizza in pizza_order:
@@ -133,14 +139,15 @@ def main():
             while remove_loop:
             
                 remove_command = command_sanitizer("Enter the pizza to remove.")
-                if is_pizza(remove_command,pizza_order):
-                    print(f"{pizza_order[remove_command].name} has been removed.")
+                if is_pizza(remove_command[0],pizza_order):
+                    print(f"{pizza_order[remove_command].name[0]} has been removed.")
                     pizza_order.pop(get_pizza_index(remove_command, pizza_order))
 
-                    if true_false("Do you wish to remove another pizza"):
-                        continue
-                    else:
-                        remove_loop = False
+                    if len(pizza_order) > 0:
+                        if true_false("Do you wish to remove another pizza"):
+                            continue
+                        else:
+                            remove_loop = False
                 else:
                     print("There is no such pizza in your order. Pizza names must be typed exactly.(remmber: ctrl c/v does not work in a Terminal.)")
             
