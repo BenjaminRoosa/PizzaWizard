@@ -1,13 +1,7 @@
 from get_inredients_dic import  Food
 from print_ingredients_mod import print_ingredients ,print_intsturctions, get_inredients
 
-def command_sanitizer(command):
-    dirty_command = input(f"{command}")
-    command_list = dirty_command.split()
-    sanitized_commands = []
-    for command in command_list:
-        sanitized_commands.append(command.lower().strip())
-    return sanitized_commands
+
 def creat_pizza_commands():
     print("help:        Prints create pizza command list.")
     print("basic:       Just crust, sauce, and cheese.")
@@ -80,7 +74,7 @@ def create_pizza(current_pizza_number):
             print("Returning to main menue.")
         else:
             print("Invaid command.")
-            creat_pizza_commands()
+            
     return list_of_pizza
 def is_pizza(pizza_name, pizza_order):
     pizza_name_lst = []

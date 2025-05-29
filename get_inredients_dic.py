@@ -1,9 +1,64 @@
+def command_sanitizer(command):
+    dirty_command = input(f"{command}")
+    command_list = dirty_command.split()
+    sanitized_commands = []
+    for command in command_list:
+        sanitized_commands.append(command.lower().strip())
+    return sanitized_commands
+
+
+class Order:
+    def __init__(self):
+        self.pizza_list = []
+        self.pizza_number = 0
+    
+    def create_pizza(self):
+        create_pizza_loop = True
+        print("What kind of pizza do you wish for?\n")
+        #format pizza_name: ["discription", calories, tags, extra_ingredients]. this is to use to just make the Pizza_obj in one line and not do the fuckery in the while loop
+        pizza_menue = {
+            "basic": ["Just crust, sauce, and cheese.", 2072, [], {}],
+            "perpperoni": ["A basic with pepperoni topping.",2144,["perpperoni"], {"perpperoni":{"measurement":"ounces","amount":0.5}}],
+            "cheese": ["It what it says on the tin, a basic with extra cheese.",2384,["extra cheese"],{"mozzarella":{"measurement": "ounves", "amount":4.0}}],
+            "dulux": ["Extra pepperoni, extra chees, and extra calories.",2528,["perpperoni","extra cheese"],{"perpperoni":{"measurement":"ounces","amount":0.5},"mozzarella":{"measurement": "ounves", "amount":4.0}}]
+        }
+        while create_pizza_loop:
+            create_command = command_sanitizer("---")
+            if create_command[0] in pizza_menue.keys():
+                new_name = f"{self.pizza_number}-{create_command[0]}"
+                new_discription = pizza_menue[create_command[0]][0]
+                new_calories = pizza_menue[create_command[0]][1]
+                new_tags = pizza_menue[create_command[0]][2]
+                new_ingredients = pizza_menue[create_command[0]][3]
+                new_pizza = Food(new_name,new_discription,new_calories,new_tags,new_ingredients)
+                self.pizza_list.append(new_pizza)
+                self.pizza_number += 1
+            if create_command[0] == "help":
+                print("help:        Prints create pizza command list.")
+                print("basic:       Just crust, sauce, and cheese.")
+                print("pepperoni:   A basic with pepperoni topping.")
+                print("cheese:      It what it says on the tin, a basic with extra cheese.")
+                print("dulux:       Extra pepperoni, extra chees, and extra calories.")
+                print("main:        return main menue. Will ask if you want to discard.")
+            
+            elif create_command[0] == "main":
+            
+                create_pizza_loop = False
+            
+                print("Returning to main menue.")
+            else:
+                print("Invaid command.")
+            
+
 class Food:
-    def __init__(self, name, calories):
+    def __init__(self, name,discription, calories,tags,extra_ingredients, parent):
+        self.parent = parent
         self.name = name
+        self.discription = discription
         #all measurements are by weight
-        self.tags = []
+        self.tags = tags
         self.calories = calories
+        self.extra_ingredients = extra_ingredients
         self.ingredients = {
             "flour" : {
                 "measurement" : "cups",
