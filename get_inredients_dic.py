@@ -6,6 +6,19 @@ def command_sanitizer(command):
         sanitized_commands.append(command.lower().strip())
     return sanitized_commands
 
+def true_false(command_string): #left off there
+    add_command = command_sanitizer(f"{command_string}")
+    
+    add_another_loop = True
+    while add_another_loop:
+        if add_command[0] == "y":
+            add_another_loop= False
+            return True
+        elif add_command[0] == "n":
+            add_another_loop= False
+            return False
+        else:
+            print("Invaid input. Try again.")
 
 class Order:
     def __init__(self):
@@ -33,15 +46,16 @@ class Order:
                 new_pizza = Food(new_name,new_discription,new_calories,new_tags,new_ingredients)
                 self.pizza_list.append(new_pizza)
                 self.pizza_number += 1
-            if create_command[0] == "help":
+                print(f"{new_pizza.name} added to order.")
+            elif create_command[0] == "help":
                 print("help:        Prints create pizza command list.")
                 print("basic:       Just crust, sauce, and cheese.")
                 print("pepperoni:   A basic with pepperoni topping.")
                 print("cheese:      It what it says on the tin, a basic with extra cheese.")
                 print("dulux:       Extra pepperoni, extra chees, and extra calories.")
-                print("main:        return main menue. Will ask if you want to discard.")
+                print("back:        return main menue.")
             
-            elif create_command[0] == "main":
+            elif create_command[0] == "back":
             
                 create_pizza_loop = False
             
@@ -49,7 +63,30 @@ class Order:
             else:
                 print("Invaid command.")
             
+    def is_pizza(self,pizza_name):
+        if len(self.pizza_list) < 1:
+            return False
+        pizza_name_lst = []
+        for pizza in self.pizza_list:
+            pizza_name_lst.append(pizza.name)
+     
+        if pizza_name in pizza_name_lst:
+            return True
+        else:
+            return False
+    def print_pizza_order(self):
+        for pizza in self.pizza_list:
+            print(f"{pizza.name}")
+    def remove_pizza(self, pizza_name):
+        if len(self.pizza_list) < 1:
+                print("No pizza to remove. Negative matter pizza is not alowed. Because it hurts to think about.")
+                return
+        remove_loop = True
+        while remove_loop: command_sanitizer("Enter the pizza to remove.")
+            pizza_to_remove =
+            if self.is_pizza():
 
+                
 class Food:
     def __init__(self, name,discription, calories,tags,extra_ingredients, parent):
         self.parent = parent
