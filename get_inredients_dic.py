@@ -19,11 +19,27 @@ def true_false(command_string): #left off there
             return False
         else:
             print("Invaid input. Try again.")
-
+def mesh_dics(dic_a, dic_b):
+    a_keys = dic_a.keys()
+    b_keys = dic_b.keys()
+    total_keys_dupe = a_keys + b_keys
+    total_keys = {}
+    total_keys.update(total_keys_dupe)
+    ab_dic = {}
+    
+    for i in total_keys:
+        if i in a_keys and i in b_keys:
+            ab_dic[i].amount = dic_a[i].amount + dic_b[i].amount
+        
+        elif i in a_keys:
+            ab_dic[i].amount = dic_a[i].amount
+        else:
+            ab_dic[i].amount = dic_b[i].amount
+    return ab_dic
 class Order:
     def __init__(self):
         self.pizza_list = []
-        self.pizza_number = 0
+        self.pizza_number = 1
     
     def create_pizza(self):
         create_pizza_loop = True
@@ -38,7 +54,7 @@ class Order:
         while create_pizza_loop:
             create_command = command_sanitizer("---")
             if create_command[0] in pizza_menue.keys():
-                new_name = f"{self.pizza_number}-{create_command[0]}"
+                new_name = f"{self.pizza_number} -{create_command[0]}"
                 new_discription = pizza_menue[create_command[0]][0]
                 new_calories = pizza_menue[create_command[0]][1]
                 new_tags = pizza_menue[create_command[0]][2]
@@ -77,19 +93,65 @@ class Order:
     def print_pizza_order(self):
         for pizza in self.pizza_list:
             print(f"{pizza.name}")
-    def remove_pizza(self, pizza_name):
+    def get_pizza_index(self,pizza_name):
+    
+        for pizza in self.pizza_list:
+        
+            if pizza.name == pizza_name:
+                return self.pizza_list.index(pizza)
+    def remove_pizza(self):
         if len(self.pizza_list) < 1:
                 print("No pizza to remove. Negative matter pizza is not alowed. Because it hurts to think about.")
                 return
-        remove_loop = True
-        while remove_loop: command_sanitizer("Enter the pizza to remove.")
-            pizza_to_remove =
-            if self.is_pizza():
+        self.print_pizza_order()
 
-                
+        pizza_to_remove = command_sanitizer("Enter the pizza number to remove.")
+        
+        if self.is_pizza(pizza_to_remove[0]):
+                self.pizza_list.pop(self.get_pizza_index(pizza_to_remove[0]))
+        else:
+            print("No pizza with that name.")
+
+    def print_ingredients(self):
+        total_ingredients = {}
+        for pizza in self.pizza_list:
+            total_ingredients = mesh_dics(total_ingredients, pizza.ingredients)
+        for ingredient in total_ingredients:
+            ing_name = ingredient
+            ing_amount = total_ingredients[ingredient]["amount"]
+            ing_measurement = total_ingredients[ingredient]["measurement"]
+            ing_note = total_ingredients[ingredient]["note"]
+            print(f"{ing_amount} {ing_measurement} of {ing_name}")
+            print(f"{ing_note}")
+    def print_calories(self):
+        if len(self.pizza_list) < 0 :
+            print("Zer0, zelch, nada, calories.")
+        for pizza in self.pizza_list:
+            print(f"{pizza.name} --- {pizza.calories}")
+    
+    def get_tags(self):
+        tags = {}
+        for pizza in self.pizza_list:
+            if len(pizza.tags) > 1:
+                for tag in pizza.tags:
+                    if tag in tags:
+                        old_value = tags[tag]
+                        new_value = old_value +1
+                        tags[tag]= new_value
+                    else:
+                        tags[tag] = 1
+            elif len(pizza.tags) == 1:
+                if tag in tags:
+                    old_value = tags[tag]
+                    new_value = old_value +1
+                    tags[tag]= new_value
+                else:
+                    tags[tag] = 1
+            else:
+                continue
+        return tags
 class Food:
-    def __init__(self, name,discription, calories,tags,extra_ingredients, parent):
-        self.parent = parent
+    def __init__(self, name,discription, calories,tags,extra_ingredients):
         self.name = name
         self.discription = discription
         #all measurements are by weight
@@ -130,12 +192,12 @@ class Food:
             "black pepper": {
                 "measurement" : "teaspoons",
                 "amount" : 0.5,
-                "note": "Not black powder, let my eyebrows be the only casualty of this COMMON AND UNDERSTANDABLE MISSTAKE."
+                "note": "Not black powder, this  is COMMON AND UNDERSTANDABLE MISSTAKE."
             },
             "garlic": {
                 "measurement" : "ounces",
                 "amount" : 1,
-                "note": "just buy it from the store and save your self the time of tracking, killing, detocifying, butchering, finding a herbalist and finaly get it notarzed by said herbalist"
+                "note": "Just buy it from the store and save your self the time of tracking, killing, and finding a herbalist to detocify the garlic (this can take 3 - 4 business days)."
             },
             "rosemary": {
                 "measurement" : "teaspoons",
@@ -150,12 +212,12 @@ class Food:
             "oregano": {
                 "measurement" : "teaspoons",
                 "amount" : 1,
-                "note": "again herv"
+                "note": "again herb."
             },
             "sugar": {
                 "measurement" : "teaspoons",
                 "amount" : 1,
-                "note": "this one is a carb"
+                "note": "this one is a carb."
             }
         }
     

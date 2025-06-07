@@ -19,29 +19,9 @@ def get_inredients(pizza_order):
         for pizza in pizza_order:
                     ingredients = mesh_dics(ingredients, pizza.ingredients)
     return ingredients
-def get_tags(pizza_order):
-    tags = {}
-    for pizza in pizza_order:
-        if len(pizza.tags) > 1:
-            for tag in pizza.tags:
-                if tag in tags:
-                    old_value = tags[tag]
-                    new_value = old_value +1
-                    tags[tag]= new_value
-                else:
-                    tags[tag] = 1
-        elif len(pizza.tags) == 1:
-            if tag in tags:
-                old_value = tags[tag]
-                new_value = old_value +1
-                tags[tag]= new_value
-            else:
-                tags[tag] = 1
-        else:
-            continue
-    return tags
+
 def print_intsturctions(pizza_order):
-    pizza_tags = get_tags(pizza_order)
+    pizza_tags = pizza_order.get_tags() #to-do add tag support to insturctions
     pizza_ingredients = get_inredients(pizza_order)
     print("First you will need to make the dough\n\n")
     
@@ -77,20 +57,3 @@ def print_intsturctions(pizza_order):
     print("Spread the Mozzarella over the sauce.")
     print("Bake for 13-17 mins and enjoy.")
     
-def mesh_dics(dic_a, dic_b):
-    a_keys = dic_a.keys()
-    b_keys = dic_b.keys()
-    total_keys_dupe = a_keys + b_keys
-    total_keys = {}
-    total_keys.update(total_keys_dupe)
-    ab_dic = {}
-    
-    for i in total_keys:
-        if i in a_keys and i in b_keys:
-            ab_dic[i].amount = dic_a[i].amount + dic_b[i].amount
-        
-        elif i in a_keys:
-            ab_dic[i].amount = dic_a[i].amount
-        else:
-            ab_dic[i].amount = dic_b[i].amount
-    return ab_dic
